@@ -1,0 +1,28 @@
+/**
+ * Editor-only styles for AI Demo Block
+ */
+.dev-experiments-block {
+	/* Editor-specific styles */
+	&.is-selected {
+		box-shadow: 0 0 0 2px #007cba;
+	}
+}
+
+.dev-experiments-block__title,
+.dev-experiments-block__content {
+	&:focus {
+		outline: 1px dashed rgba(255, 255, 255, 0.5);
+		outline-offset: 4px;
+	}
+
+	&::placeholder {
+		color: rgba(255, 255, 255, 0.6);
+	}
+}
+
+/* Inspector controls styling */
+.components-panel__body {
+	.components-toggle-control {
+		margin-bottom: 1rem;
+	}
+}

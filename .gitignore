@@ -1,0 +1,42 @@
+# .gitignore for AI Demo Gutenberg Plugin
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files
+build/
+dist/
+
+# Composer
+vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# WordPress
+wp-content/uploads/
+wp-content/cache/
+*.log
+
+# Environment
+.env
+.env.local
+
+# Testing
+coverage/
+.phpunit.result.cache
+phpunit.xml
+
+# Misc
+*.swp
+*.swo
+*~
+.sass-cache/

@@ -1,0 +1,53 @@
+{
+	"name": "dev-experiments",
+	"version": "1.0.0",
+	"description": "A demo Gutenberg block plugin showcasing GitHub automation with AI tools",
+	"author": "Your Team",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"gutenberg",
+		"block",
+		"dev-experiments",
+		"automation",
+		"github"
+	],
+	"homepage": "https://github.com/iqbal-web/dev-experiments",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/iqbal-web/dev-experiments"
+	},
+	"bugs": {
+		"url": "https://github.com/iqbal-web/dev-experiments/issues"
+	},
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts lint-js --fix",
+		"lint:css:fix": "wp-scripts lint-style --fix",
+		"lint": "npm run lint:js && npm run lint:css",
+		"lint:fix": "npm run lint:js:fix && npm run lint:css:fix",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"test:e2e": "wp-scripts test-e2e",
+		"test:unit": "wp-scripts test-unit-js",
+		"test": "npm run test:unit",
+		"check-licenses": "wp-scripts check-licenses",
+		"clean": "rimraf build",
+		"prebuild": "npm run clean"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^27.0.0"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "^12.0.0",
+		"@wordpress/blocks": "^12.0.0",
+		"@wordpress/components": "^25.0.0",
+		"@wordpress/element": "^5.0.0",
+		"@wordpress/i18n": "^4.0.0",
+		"prop-types": "^15.8.1"
+	}
+}

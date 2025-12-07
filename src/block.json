@@ -1,0 +1,47 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "dev-experiments/dev-experiments-block",
+	"version": "1.0.0",
+	"title": "Dev Experiments Block",
+	"category": "widgets",
+	"icon": "lightbulb",
+	"description": "A demo block created with AI assistance showing GitHub automation features",
+	"keywords": ["ai", "demo", "automation"],
+	"example": {
+		"attributes": {
+			"title": "Welcome to Dev Experiments Block",
+			"content": "This block demonstrates modern WordPress development with GitHub automation!",
+			"showIcon": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Welcome to Dev Experiments Block"
+		},
+		"content": {
+			"type": "string",
+			"default": "This block was created using GitHub Copilot and automated with GitHub Actions!"
+		},
+		"showIcon": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"textdomain": "dev-experiments",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}
