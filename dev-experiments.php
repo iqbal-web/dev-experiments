@@ -55,3 +55,65 @@ function enqueue_block_assets() {
 	wp_enqueue_style( 'dashicons' );
 }
 add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_block_assets' );
+
+
+/**
+ * Autoloader for plugin classes.
+ */
+spl_autoload_register(
+	function ( $class ) {
+		// Project-specific namespace prefix.
+		$prefix = 'DevExperiments\\';
+
+		// Base directory for the namespace prefix.
+		$base_dir = DEV_EXPERIMENTS_PLUGIN_DIR . 'includes/';
+
+		// Does the class use the namespace prefix?
+		$len = strlen( $prefix );
+		if ( strncmp( $prefix, $class, $len ) !== 0 ) {
+			return;
+		}
+
+		// Get the relative class name.
+		$relative_class = substr( $class, $len );
+
+		// Replace the namespace prefix with the base directory, replace namespace
+		// separators with directory separators, and append .php.
+		$file = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
+
+		// If the file exists, require it.
+		if ( file_exists( $file ) ) {
+			require $file;
+		}
+	}
+);
+
+/**
+ * Initialize the plugin.
+ */
+function init_plugin() {
+	// Initialize Admin class.
+	if ( is_admin() ) {
+		new Admin\Admin();
+	}
+}
+add_action( 'plugins_loaded', __NAMESPACE__ . '\init_plugin' );
+
+/**
+ * Adds action links to the plugin list table.
+ *
+ * @param array $links Array of plugin action links.
+ * @return array Modified array of plugin action links.
+ */
+function plugin_action_links( $links ) {
+	$settings_link = sprintf(
+		'<a href="%1$s">%2$s</a>',
+		admin_url( 'admin.php?page=dev_experiments' ),
+		esc_html__( 'Settings', 'dev-experiments' )
+	);
+
+	array_unshift( $links, $settings_link );
+
+	return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), __NAMESPACE__ . '\plugin_action_links' );
