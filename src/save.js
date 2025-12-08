@@ -6,9 +6,8 @@ import PropTypes from 'prop-types';
  * be combined into the final markup, which is then serialized by the block
  * editor into `post_content`.
  *
- * @param {Object}   props               Properties passed to the function.
- * @param {Object}   props.attributes    Available block attributes.
- *
+ * @param {Object} props            Properties passed to the function.
+ * @param {Object} props.attributes Available block attributes.
  * @return {Element} Element to render.
  */
 export default function save( { attributes } ) {
