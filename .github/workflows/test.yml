@@ -70,6 +70,9 @@ jobs:
               with:
                   composer-options: "--prefer-dist --no-progress"
 
+            - name: Create output directory
+              run: mkdir -p tests/_output
+
             - name: Run PHPCS
               id: phpcs
               run: composer lint -- --report-full --report-checkstyle=./tests/_output/phpcs-report.xml
