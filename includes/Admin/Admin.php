@@ -21,9 +21,9 @@ class Admin {
 	 * Sets up admin hooks.
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', [ $this, 'admin_menu' ] );
-		add_action( 'admin_init', [ $this, 'admin_init' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Admin {
 			__( 'Dev Experiments', 'dev-experiments' ),
 			'manage_options',
 			'dev_experiments',
-			[ $this, 'render_admin_page' ],
+			array( $this, 'render_admin_page' ),
 			'dashicons-lightbulb',
 			58
 		);
@@ -48,7 +48,7 @@ class Admin {
 			__( 'Settings', 'dev-experiments' ),
 			'manage_options',
 			'dev_experiments',
-			[ $this, 'render_admin_page' ]
+			array( $this, 'render_admin_page' )
 		);
 
 		add_submenu_page(
@@ -57,7 +57,7 @@ class Admin {
 			__( 'About', 'dev-experiments' ),
 			'manage_options',
 			'dev_experiments_about',
-			[ $this, 'render_about_page' ]
+			array( $this, 'render_about_page' )
 		);
 	}
 
@@ -70,13 +70,13 @@ class Admin {
 		register_setting(
 			'dev_experiments_settings',
 			'dev_experiments_options',
-			[ $this, 'sanitize_settings' ]
+			array( $this, 'sanitize_settings' )
 		);
 
 		add_settings_section(
 			'dev_experiments_general',
 			__( 'General Settings', 'dev-experiments' ),
-			[ $this, 'render_section_general' ],
+			array( $this, 'render_section_general' ),
 			'dev_experiments'
 		);
 
@@ -103,7 +103,7 @@ class Admin {
 		wp_enqueue_style(
 			'dev-experiments-admin',
 			DEV_EXPERIMENTS_PLUGIN_URL . 'assets/css/admin.css',
-			[],
+			array(),
 			DEV_EXPERIMENTS_VERSION
 		);
 	}
