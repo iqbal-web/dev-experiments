@@ -27,9 +27,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					<ToggleControl
 						label={ __( 'Show Icon', 'dev-experiments' ) }
 						checked={ showIcon }
-						onChange={ ( value ) =>
-							setAttributes( { showIcon: value } )
-						}
+						onChange={ ( value ) => setAttributes( { showIcon: value } ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -46,7 +44,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					className="dev-experiments-block__title"
 					value={ title }
 					onChange={ ( value ) => setAttributes( { title: value } ) }
-					placeholder={ __( 'Enter title...', 'dev-experiments' ) }
+					placeholder={ __( 'Enter title…', 'dev-experiments' ) }
 					aria-label={ __( 'Block title', 'dev-experiments' ) }
 				/>
 
@@ -55,7 +53,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					className="dev-experiments-block__content"
 					value={ content }
 					onChange={ ( value ) => setAttributes( { content: value } ) }
-					placeholder={ __( 'Enter content...', 'dev-experiments' ) }
+					placeholder={ __( 'Enter content…', 'dev-experiments' ) }
 					aria-label={ __( 'Block content', 'dev-experiments' ) }
 				/>
 
