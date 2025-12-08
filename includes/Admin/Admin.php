@@ -77,17 +77,19 @@ class Admin {
 			'dev_experiments_general',
 			__( 'General Settings', 'dev-experiments' ),
 			array( $this, 'render_section_general' ),
-		'dev_experiments'
-	);
+			'dev_experiments'
+		);
 
-	add_settings_field(
-		'enable_features',
-		__( 'Enable Experimental Features', 'dev-experiments' ),
-		array( $this, 'render_field_enable_features' ),
-		'dev_experiments',
-		'dev_experiments_general'
-	);
-}	/**
+		add_settings_field(
+			'enable_features',
+			__( 'Enable Experimental Features', 'dev-experiments' ),
+			array( $this, 'render_field_enable_features' ),
+			'dev_experiments',
+			'dev_experiments_general'
+		);
+	}
+
+	/**
 	 * Enqueue admin assets.
 	 *
 	 * @param string $hook The current admin page hook.
