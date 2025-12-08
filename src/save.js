@@ -37,9 +37,7 @@ export default function save( { attributes } ) {
 			/>
 
 			<div className="dev-experiments-block__footer" role="contentinfo">
-				<p className="dev-experiments-block__badge">
-					🤖 Powered by AI & GitHub Automation
-				</p>
+				<p className="dev-experiments-block__badge">🤖 Powered by AI & GitHub Automation</p>
 			</div>
 		</div>
 	);
