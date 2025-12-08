@@ -192,7 +192,7 @@ class Admin {
 	 * Render enable features field.
 	 */
 	public function render_field_enable_features() {
-		$options = get_option( 'dev_experiments_options', [] );
+		$options = get_option( 'dev_experiments_options', array() );
 		$checked = isset( $options['enable_features'] ) ? $options['enable_features'] : false;
 		?>
 		<label>
@@ -209,7 +209,7 @@ class Admin {
 	 * @return array Sanitized values.
 	 */
 	public function sanitize_settings( $input ) {
-		$sanitized = [];
+		$sanitized = array();
 
 		if ( isset( $input['enable_features'] ) ) {
 			$sanitized['enable_features'] = (bool) $input['enable_features'];

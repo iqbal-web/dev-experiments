@@ -25,11 +25,11 @@ delete_option( 'dev_experiments_settings' );
 if ( is_multisite() ) {
 	global $wpdb;
 
-	// Get all blog IDs.
-	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$dev_experiments_blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
-	foreach ( $blog_ids as $blog_id ) {
-		switch_to_blog( $blog_id );
+	foreach ( $dev_experiments_blog_ids as $dev_experiments_blog_id ) {
+		switch_to_blog( $dev_experiments_blog_id );
 
 		// Delete options for this site.
 		delete_option( 'dev_experiments_options' );

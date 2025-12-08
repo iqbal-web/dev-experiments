@@ -9,6 +9,8 @@
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: dev-experiments
+ *
+ * @package DevExperiments
  */
 
 namespace DevExperiments;
@@ -61,7 +63,7 @@ add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_block_assets' );
  * Autoloader for plugin classes.
  */
 spl_autoload_register(
-	function ( $class ) {
+	function ( $classname ) {
 		// Project-specific namespace prefix.
 		$prefix = 'DevExperiments\\';
 
@@ -70,12 +72,12 @@ spl_autoload_register(
 
 		// Does the class use the namespace prefix?
 		$len = strlen( $prefix );
-		if ( strncmp( $prefix, $class, $len ) !== 0 ) {
+		if ( strncmp( $prefix, $classname, $len ) !== 0 ) {
 			return;
 		}
 
 		// Get the relative class name.
-		$relative_class = substr( $class, $len );
+		$relative_class = substr( $classname, $len );
 
 		// Replace the namespace prefix with the base directory, replace namespace
 		// separators with directory separators, and append .php.
