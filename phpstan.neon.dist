@@ -1,0 +1,22 @@
+parameters:
+	level: 5
+	paths:
+		- dev-experiments.php
+		- includes/
+	excludePaths:
+		- tests/
+		- vendor/
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php
+	scanDirectories:
+		- vendor/
+	ignoreErrors:
+		# WordPress functions
+		- '#Function (add_action|add_filter|register_block_type|register_setting|add_settings_section|add_settings_field|get_option|delete_option|delete_transient|wp_cache_flush|load_plugin_textdomain|plugin_dir_path|plugin_dir_url|plugin_basename|admin_url|esc_html__|esc_html_e|esc_html|esc_url|esc_attr|current_user_can|wp_die|settings_fields|do_settings_sections|submit_button|settings_errors|get_admin_page_title|is_admin|is_multisite|switch_to_blog|restore_current_blog|wp_enqueue_style|checked) not found\.#'
+		# Allow dynamic properties in WordPress
+		- '#Access to an undefined property#'
+	tmpDir: tests/_output
+	treatPhpDocTypesAsCertain: false
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
+	reportUnmatchedIgnoredErrors: false

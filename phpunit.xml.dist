@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+	bootstrap="tests/bootstrap.php"
+	colors="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	cacheDirectory="tests/_output/.phpunit.cache"
+	failOnRisky="true"
+	failOnWarning="true"
+	displayDetailsOnTestsThatTriggerErrors="true"
+	displayDetailsOnTestsThatTriggerWarnings="true"
+	displayDetailsOnTestsThatTriggerDeprecations="true"
+	displayDetailsOnTestsThatTriggerNotices="true">
+	<testsuites>
+		<testsuite name="Dev Experiments Test Suite">
+			<directory suffix="Test.php">./tests/phpunit</directory>
+		</testsuite>
+	</testsuites>
+	<source>
+		<include>
+			<directory suffix=".php">./includes</directory>
+			<file>./dev-experiments.php</file>
+		</include>
+	</source>
+	<coverage
+		includeUncoveredFiles="true"
+		pathCoverage="false"
+		ignoreDeprecatedCodeUnits="true"
+		disableCodeCoverageIgnore="false">
+		<report>
+			<clover outputFile="tests/_output/php-coverage.xml"/>
+			<html outputDirectory="tests/_output/html" lowUpperBound="50" highLowerBound="90"/>
+			<text outputFile="php://stdout" showUncoveredFiles="false"/>
+		</report>
+	</coverage>
+	<php>
+		<const name="WP_TESTS_PHPUNIT_POLYFILLS_PATH" value="./vendor/yoast/phpunit-polyfills"/>
+		<ini name="error_reporting" value="32767"/>
+		<ini name="display_errors" value="1"/>
+		<ini name="display_startup_errors" value="1"/>
+	</php>
+</phpunit>
