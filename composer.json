@@ -2,10 +2,32 @@
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^3.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpstan/phpstan": "^1.10",
+		"phpunit/phpunit": "^10.5",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	},
 	"scripts": {
 		"phpcs": "phpcs --standard=phpcs.xml.dist",
-		"phpcbf": "phpcbf --standard=phpcs.xml.dist"
+		"phpcbf": "phpcbf --standard=phpcs.xml.dist",
+		"lint": "phpcs --standard=phpcs.xml.dist --report-full --report-checkstyle=./tests/_output/phpcs-report.xml",
+		"phpstan": "phpstan analyse -vvv",
+		"test": "phpunit --configuration phpunit.xml.dist",
+		"test:coverage": "phpunit --configuration phpunit.xml.dist --coverage-html tests/_output/html --coverage-clover tests/_output/php-coverage.xml"
+	},
+	"autoload": {
+		"psr-4": {
+			"DevExperiments\\": "includes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"DevExperiments\\Tests\\": "tests/phpunit/"
+		}
 	}
 }

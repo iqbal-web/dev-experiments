@@ -1,0 +1,56 @@
+# Configure Dependabot scanning for dev-experiments plugin.
+version: 2
+
+updates:
+    # Check for updates to GitHub Actions.
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'daily'
+          # day: 'monday'
+      open-pull-requests-limit: 5
+      labels:
+          - 'dependencies'
+          - 'github-actions'
+      groups:
+          github-actions:
+              patterns:
+                  - '*'
+
+    # Check for npm dependency updates.
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'daily'
+          # day: 'monday'
+      open-pull-requests-limit: 5
+      labels:
+          - 'dependencies'
+          - 'javascript'
+      versioning-strategy: increase
+      groups:
+          wordpress-scripts:
+              patterns:
+                  - '@wordpress/*'
+          development:
+              dependency-type: 'development'
+
+    # Check for Composer dependency updates.
+    - package-ecosystem: 'composer'
+      directory: '/'
+      schedule:
+          interval: 'daily'
+          # day: 'monday'
+      open-pull-requests-limit: 5
+      labels:
+          - 'dependencies'
+          - 'php'
+      groups:
+          testing:
+              patterns:
+                  - 'phpunit/*'
+                  - 'phpstan/*'
+          code-quality:
+              patterns:
+                  - 'wp-coding-standards/*'
+                  - 'phpcompatibility/*'

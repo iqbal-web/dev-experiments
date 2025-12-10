@@ -1,0 +1,95 @@
+/**
+ * Admin styles for Dev Experiments plugin
+ */
+
+.dev-experiments-admin-wrapper,
+.dev-experiments-about-wrapper {
+	max-width: 1200px;
+	margin: 20px 0;
+}
+
+.dev-experiments-info-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px;
+	margin-top: 30px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.dev-experiments-info-card h2 {
+	margin-top: 0;
+	border-bottom: 1px solid #dcdcde;
+	padding-bottom: 10px;
+}
+
+.dev-experiments-info-card p {
+	margin: 10px 0;
+}
+
+.dev-experiments-info-card a {
+	color: #2271b1;
+	text-decoration: none;
+}
+
+.dev-experiments-info-card a:hover {
+	color: #135e96;
+	text-decoration: underline;
+}
+
+.dev-experiments-about-content {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.dev-experiments-about-content h2 {
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid #dcdcde;
+}
+
+.dev-experiments-about-content h2:first-child {
+	margin-top: 0;
+	padding-top: 0;
+	border-top: none;
+}
+
+.dev-experiments-about-content ul {
+	list-style: disc;
+	margin-left: 20px;
+}
+
+.dev-experiments-about-content li {
+	margin: 8px 0;
+	line-height: 1.6;
+}
+
+/* Settings form */
+.dev-experiments-admin-wrapper .form-table th {
+	width: 250px;
+}
+
+.dev-experiments-admin-wrapper label {
+	cursor: pointer;
+}
+
+.dev-experiments-admin-wrapper input[type="checkbox"] {
+	margin-right: 8px;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+
+	.dev-experiments-admin-wrapper,
+	.dev-experiments-about-wrapper {
+		margin: 10px 0;
+	}
+
+	.dev-experiments-info-card,
+	.dev-experiments-about-content {
+		padding: 15px;
+	}
+}

@@ -1,0 +1,79 @@
+name: Copilot Setup Steps
+
+# Primes the GitHub Copilot coding agent ephemeral environment.
+# Keep this lean: install & cache dependencies needed for typical tasks (lint, build, tests).
+# Only the single job named exactly `copilot-setup-steps` is executed by Copilot pre-session.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node from .nvmrc (with npm cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            composer-${{ runner.os }}-
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Build plugin assets
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "build" ]; then
+            echo "⚠️ Build directory not found!"
+            exit 1
+          fi
+          echo "✅ Build completed successfully"
+
+      - name: Summary
+        run: |
+          echo '## Copilot Setup Summary' >> $GITHUB_STEP_SUMMARY
+          echo "* Node $(cat .nvmrc) & PHP 8.1 installed" >> $GITHUB_STEP_SUMMARY
+          echo '* Dependencies installed (npm, composer)' >> $GITHUB_STEP_SUMMARY
+          echo '* Plugin assets built successfully' >> $GITHUB_STEP_SUMMARY
+          echo '* Caches primed for faster subsequent runs' >> $GITHUB_STEP_SUMMARY
+          echo '* Environment ready for Copilot coding agent' >> $GITHUB_STEP_SUMMARY
+    # To scale resources later, change runs-on to a larger Ubuntu runner label (e.g., ubuntu-4-core) if configured.
+    # Add secrets/vars in repository Settings > Environments > copilot.
