@@ -1,0 +1,92 @@
+name: Publish Plugin Release
+
+on:
+    workflow_dispatch:
+        inputs:
+            release_type:
+                description: 'Release type'
+                required: true
+                type: choice
+                default: 'patch'
+                options:
+                    - patch
+                    - minor
+                    - major
+            prerelease:
+                description: 'Mark as pre-release'
+                required: false
+                type: boolean
+                default: false
+
+# Cancels all previous workflow runs for pull requests that have not completed.
+concurrency:
+    # The concurrency group contains the workflow name and the branch name for pull requests
+    # or the commit hash for any other events.
+    group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
+    cancel-in-progress: true
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+jobs:
+    release:
+        name: Create Plugin Release
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  persist-credentials: true
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.1'
+                  tools: composer
+
+            - name: Install dependencies
+              run: |
+                  npm ci
+                  composer install --no-dev --optimize-autoloader
+
+            - name: Run tests
+              run: |
+                  npm run lint
+                  npm run test
+                  composer lint
+
+            - name: Build plugin
+              run: npm run build
+
+            - name: Create plugin zip
+              run: npm run plugin-zip
+
+            - name: Get plugin version
+              id: version
+              run: |
+                  VERSION=$(node -p "require('./package.json').version")
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  tag_name: v${{ steps.version.outputs.version }}
+                  name: Release v${{ steps.version.outputs.version }}
+                  draft: false
+                  prerelease: ${{ github.event.inputs.prerelease }}
+                  generate_release_notes: true
+                  files: |
+                      dev-experiments.zip
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
