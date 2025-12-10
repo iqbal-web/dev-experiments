@@ -82,6 +82,7 @@
 
 /* Responsive */
 @media screen and (max-width: 782px) {
+
 	.dev-experiments-admin-wrapper,
 	.dev-experiments-about-wrapper {
 		margin: 10px 0;
