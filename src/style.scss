@@ -24,6 +24,7 @@
 }
 
 @keyframes pulse {
+
 	0%,
 	100% {
 		opacity: 1;
@@ -69,6 +70,7 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+
 	.dev-experiments-block {
 		padding: 1.5rem;
 	}
