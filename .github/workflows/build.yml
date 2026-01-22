@@ -55,6 +55,18 @@ jobs:
         path: build/
         retention-days: 7
 
+    - name: Create plugin ZIP
+      if: github.event_name == 'pull_request' && matrix.node-version == '20.x'
+      run: npm run plugin-zip
+
+    - name: Upload plugin ZIP for Playground Preview
+      if: github.event_name == 'pull_request' && matrix.node-version == '20.x'
+      uses: actions/upload-artifact@v4
+      with:
+        name: dev-experiments-plugin-zip-pr${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
+        path: dev-experiments.zip
+        if-no-files-found: error
+
   test:
     name: Run Tests
     runs-on: ubuntu-latest
