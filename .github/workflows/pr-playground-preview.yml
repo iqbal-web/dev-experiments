@@ -5,7 +5,7 @@ name: PR Playground Preview
 # Operates on artifacts from the unprivileged build workflow
 on:
   workflow_run:
-    workflows: ["Build Plugin Zip"]
+    workflows: ["Build and Test"]
     types:
       - completed
 
@@ -14,10 +14,9 @@ on:
 permissions: {}
 
 jobs:
-
   # Leaves a comment on a pull request with a link to test the changes in a WordPress Playground instance.
   playground-details:
-    name: Comment on a pull request with Playground details
+    name: Comment on PR with Playground details
     runs-on: ubuntu-latest
     # Only run if the build workflow succeeded and was triggered by a pull_request
     if: >
@@ -41,27 +40,21 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{ github.event.workflow_run.id }},
             });
-
             const artifact = artifacts.data.artifacts.find(a =>
-              a.name.startsWith("dev-experiments-zip-pr")
+              a.name.startsWith("dev-experiments-plugin-zip-pr")
             );
-
             if (!artifact) {
               throw new Error('Could not find plugin artifact');
             }
-
-            // Parse: dev-experiments-zip-pr123-abc123def...
-            const match = artifact.name.match(/^dev-experiments-zip-pr(\d+)-(.+)$/);
+            // Parse: dev-experiments-plugin-zip-pr123-abc123def...
+            const match = artifact.name.match(/^dev-experiments-plugin-zip-pr(\d+)-(.+)$/);
             if (!match) {
               throw new Error(`Could not parse artifact name: ${artifact.name}`);
             }
-
             const [, prNumber, commitSha] = match;
-
             core.setOutput('pr-number', prNumber);
             core.setOutput('commit-sha', commitSha);
             core.setOutput('artifact-name', artifact.name);
-
       - name: Expose built artifact
         id: expose
         uses: WordPress/action-wp-playground-pr-preview/.github/actions/expose-artifact-on-public-url@v2
@@ -81,7 +74,6 @@ jobs:
           if (!url) {
             throw new Error('ARTIFACT_URL is required');
           }
-
           const blueprint = {
             steps: [
               {
@@ -93,7 +85,6 @@ jobs:
               },
             ],
           };
-
           console.log(`blueprint=${JSON.stringify(blueprint)}`);
           NODE
         env:
