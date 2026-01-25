@@ -132,7 +132,7 @@ class Admin {
 			</form>
 
 			<div class="dev-experiments-info-card">
-				<h2><?php esc_html_e( 'About This Plugin test', 'dev-experiments' ); ?></h2>
+				<h2><?php esc_html_e( 'About This Plugin', 'dev-experiments' ); ?></h2>
 				<p><?php esc_html_e( 'Dev Experiments is a modern Gutenberg block plugin built with best practices and AI assistance.', 'dev-experiments' ); ?></p>
 				<p>
 					<strong><?php esc_html_e( 'Version:', 'dev-experiments' ); ?></strong> <?php echo esc_html( DEV_EXPERIMENTS_VERSION ); ?><br>
