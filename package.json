@@ -47,7 +47,7 @@
 		"release": "npm run test:all && npm run build && npm run plugin-zip"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^27.0.0"
+		"@wordpress/scripts": "^31.3.0"
 	},
 	"dependencies": {
 		"@wordpress/block-editor": "^12.0.0",
